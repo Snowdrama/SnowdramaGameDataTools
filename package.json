@@ -1,0 +1,23 @@
+{
+  "name": "com.snowdrama.game_data",
+  "version": "0.1.7",
+  "description": "A simple set of scripts for managing game data",
+  "displayName": "Snowdrama Game Data Tools",
+  "unity": "2019.1",
+  "author": {
+    "name": "John 'Snowdrama' Close",
+    "email": "SnowdramaGames@gmail.com",
+    "url": "http://www.snowdrama.net"
+  },
+  "dependencies": {
+    "com.unity.nuget.newtonsoft-json":"0.3.0"
+  },
+  "type": "utility",
+  "samples": [
+    {
+      "displayName": "Spring Example",
+      "description": "A set of scripts for managing, serializing, and deserializing dictionaries",
+      "path": "Samples~/SpringExample"
+    }
+  ]
+}
