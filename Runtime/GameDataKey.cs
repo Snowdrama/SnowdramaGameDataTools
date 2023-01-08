@@ -16,5 +16,12 @@ namespace Snowdrama.GameData
                 return _keyName;
             }
         }
+        private void OnValidate()
+        {
+            if (string.IsNullOrEmpty(_keyName))
+            {
+                _keyName = this.name;
+            }
+        }
     }
 }
