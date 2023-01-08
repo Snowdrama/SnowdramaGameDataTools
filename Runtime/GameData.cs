@@ -112,7 +112,7 @@ namespace Snowdrama.GameData
                 output = stringFlags[convertedKey];
                 return true;
             }
-            output = 0;
+            output = null;
             return false;
         }
         public string RawGetFlagString(string key, string fallbackState = null)
