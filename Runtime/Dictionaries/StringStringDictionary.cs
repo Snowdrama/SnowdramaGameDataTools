@@ -1,13 +1,9 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-
-namespace Snowdrama.GameData
+﻿namespace Snowdrama.GameData
 {
     [System.Serializable]
-    public class StringBoolDictionary : UnitySerializedDictionary<string, bool>
+    public class StringStringDictionary : UnitySerializedDictionary<string, string>
     {
-        public void Write(string key, bool value)
+        public void Write(string key, string value)
         {
             if (Has(key))
             {
@@ -28,7 +24,7 @@ namespace Snowdrama.GameData
             return false;
         }
 
-        public bool GetOrDefault(string key, bool defaultValue = false)
+        public string GetOrDefault(string key, string defaultValue = null)
         {
             if (Has(key))
             {

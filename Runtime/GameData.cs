@@ -9,6 +9,7 @@ namespace Snowdrama.GameData
     {
         //TODO: Come back and add a bunch of hashing stuff for the Dictionary<int, int>
         public StringIntDictionary intFlags = new StringIntDictionary();
+        public StringStringDictionary stringFlags = new StringStringDictionary();
         //public StringActionDictionary intActionFlags = new StringActionDictionary<int>();
         public StringFloatDictionary floatFlags = new StringFloatDictionary();
         public StringBoolDictionary boolFlags = new StringBoolDictionary();
@@ -20,6 +21,7 @@ namespace Snowdrama.GameData
         public void Init()
         {
             intFlags = new StringIntDictionary();
+            stringFlags = new StringStringDictionary();
             floatFlags = new StringFloatDictionary();
             boolFlags = new StringBoolDictionary();
             vector2Flags = new StringVector2Dictionary();
@@ -32,6 +34,7 @@ namespace Snowdrama.GameData
         public void ClearAllData()
         {
             intFlags.Clear();
+            stringFlags.Clear();
             floatFlags.Clear();
             boolFlags.Clear();
             vector2Flags.Clear();
@@ -97,6 +100,53 @@ namespace Snowdrama.GameData
             RawSetFlagInt(modifier.gameDataKey.KeyName, value);
         }
 
+        #endregion
+
+
+        #region Strings
+        public bool RawTryGetFlagString(string key, out string output)
+        {
+            var convertedKey = key;
+            if (stringFlags.ContainsKey(convertedKey))
+            {
+                output = stringFlags[convertedKey];
+                return true;
+            }
+            output = 0;
+            return false;
+        }
+        public string RawGetFlagString(string key, string fallbackState = null)
+        {
+            var convertedKey = key;
+            return stringFlags.ContainsKey(convertedKey) ? stringFlags[convertedKey] : fallbackState;
+        }
+        public void RawSetFlagString(string key, string state)
+        {
+            var convertedKey = key;
+            if (stringFlags.ContainsKey(convertedKey))
+            {
+                stringFlags[convertedKey] = state;
+            }
+            else
+            {
+                stringFlags.Add(convertedKey, state);
+            }
+        }
+        //uses a game key to get the value, PREFERED because the key SO can be shared and is read only
+        public string GetFlagString(GameDataKey gameDataKey, string fallbackState = null)
+        {
+            return RawGetFlagString(gameDataKey.KeyName);
+        }
+        //uses a game key to set the value, PREFERED because the key SO can be shared and is read only
+        public void SetFlagString(GameDataKey gameDataKey, string value)
+        {
+            RawSetFlagString(gameDataKey.KeyName, value);
+        }
+
+        public void ModifyFlagString(StringGameDataModifier modifier)
+        {
+            RawSetFlagString(modifier.gameDataKey.KeyName, modifier.newValue);
+        }
         #endregion
 
         #region Floats
@@ -493,6 +543,9 @@ namespace Snowdrama.GameData
             {
                 case IntGameDataModifier mod:
                     ModifyFlagInt(mod);
+                    break;
+                case StringGameDataModifier mod:
+                    ModifyFlagString(mod);
                     break;
                 case FloatGameDataModifier mod:
                     ModifyFlagFloat(mod);
