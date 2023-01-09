@@ -1,13 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Snowdrama.GameData
 {
-    [CreateAssetMenu]
-    public class GameDataKey : ScriptableObject
+    public abstract class GameDataKey<T> : ScriptableObject
     {
-        //settable in the editor but then not modifiable
+        public Action<T> onChange;
         [SerializeField] private string _keyName;
         public string KeyName
         {
@@ -27,5 +27,6 @@ namespace Snowdrama.GameData
                 _keyName = this.name;
             }
         }
+
     }
 }

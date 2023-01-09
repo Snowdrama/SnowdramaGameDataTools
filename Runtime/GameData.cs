@@ -72,15 +72,16 @@ namespace Snowdrama.GameData
             }
         }
         //uses a game key to get the value, PREFERED because the key SO can be shared and is read only
-        public int GetFlagInt(GameDataKey gameDataKey, int fallbackState = 0)
+        public int GetFlagInt(GameDataKey<int> gameDataKey, int fallbackState = 0)
         {
             return RawGetFlagInt(gameDataKey.KeyName);
         }
 
         //uses a game key to set the value, PREFERED because the key SO can be shared and is read only
-        public void SetFlagInt(GameDataKey gameDataKey, int value)
+        public void SetFlagInt(GameDataKey<int> gameDataKey, int value)
         {
             RawSetFlagInt(gameDataKey.KeyName, value);
+            gameDataKey.onChange?.Invoke(value);
         }
 
         public void ModifyFlagInt(IntGameDataModifier modifier)
@@ -99,6 +100,7 @@ namespace Snowdrama.GameData
                     break;
             }
             RawSetFlagInt(modifier.gameDataKey.KeyName, value);
+            modifier.gameDataKey.onChange?.Invoke(value);
         }
 
         #endregion
@@ -134,19 +136,21 @@ namespace Snowdrama.GameData
             }
         }
         //uses a game key to get the value, PREFERED because the key SO can be shared and is read only
-        public string GetFlagString(GameDataKey gameDataKey, string fallbackState = null)
+        public string GetFlagString(GameDataKey<string> gameDataKey, string fallbackState = null)
         {
             return RawGetFlagString(gameDataKey.KeyName);
         }
         //uses a game key to set the value, PREFERED because the key SO can be shared and is read only
-        public void SetFlagString(GameDataKey gameDataKey, string value)
+        public void SetFlagString(GameDataKey<string> gameDataKey, string value)
         {
             RawSetFlagString(gameDataKey.KeyName, value);
+            gameDataKey.onChange?.Invoke(value);
         }
 
         public void ModifyFlagString(StringGameDataModifier modifier)
         {
             RawSetFlagString(modifier.gameDataKey.KeyName, modifier.newValue);
+            modifier.gameDataKey.onChange?.Invoke(modifier.newValue);
         }
         #endregion
 
@@ -184,14 +188,15 @@ namespace Snowdrama.GameData
             return fallbackState;
         }
         //uses a game key to get the value, PREFERED because the key SO can be shared and is read only
-        public float GetFlagFloat(GameDataKey gameDataKey)
+        public float GetFlagFloat(GameDataKey<float> gameDataKey)
         {
             return RawGetFlagFloat(gameDataKey.KeyName);
         }
         //uses a game key to set the value, PREFERED because the key SO can be shared and is read only
-        public void SetFlagFloat(GameDataKey gameDataKey, float value)
+        public void SetFlagFloat(GameDataKey<float> gameDataKey, float value)
         {
             RawSetFlagFloat(gameDataKey.KeyName, value);
+            gameDataKey.onChange?.Invoke(value);
         }
         public void ModifyFlagFloat(FloatGameDataModifier modifier)
         {
@@ -209,6 +214,7 @@ namespace Snowdrama.GameData
                     break;
             }
             RawSetFlagFloat(modifier.gameDataKey.KeyName, value);
+            modifier.gameDataKey.onChange?.Invoke(value);
         }
 
         #endregion
@@ -243,19 +249,21 @@ namespace Snowdrama.GameData
             }
         }
         //uses a game key to get the value, PREFERED because the key SO can be shared and is read only
-        public bool GetFlagBool(GameDataKey gameDataKey)
+        public bool GetFlagBool(GameDataKey<bool> gameDataKey)
         {
             return RawGetFlagBool(gameDataKey.KeyName);
         }
         //uses a game key to set the value, PREFERED because the key SO can be shared and is read only
-        public void SetFlagBool(GameDataKey gameDataKey, bool value)
+        public void SetFlagBool(GameDataKey<bool> gameDataKey, bool value)
         {
             RawSetFlagBool(gameDataKey.KeyName, value);
+            gameDataKey.onChange?.Invoke(value);
         }
 
         public void ModifyFlagBool(BoolGameDataModifier modifier)
         {
             RawSetFlagBool(modifier.gameDataKey.KeyName, modifier.newValue);
+            modifier.gameDataKey.onChange?.Invoke(modifier.newValue);
         }
 
         #endregion
@@ -290,14 +298,15 @@ namespace Snowdrama.GameData
             }
         }
         //uses a game key to get the value, PREFERED because the key SO can be shared and is read only
-        public Vector2 GetFlagVector2(GameDataKey gameDataKey)
+        public Vector2 GetFlagVector2(GameDataKey<Vector2> gameDataKey)
         {
             return RawGetFlagVector2(gameDataKey.KeyName);
         }
         //uses a game key to set the value, PREFERED because the key SO can be shared and is read only
-        public void SetFlagVector2(GameDataKey gameDataKey, Vector2 value)
+        public void SetFlagVector2(GameDataKey<Vector2> gameDataKey, Vector2 value)
         {
             RawSetFlagVector2(gameDataKey.KeyName, value);
+            gameDataKey.onChange?.Invoke(value);
         }
         public void ModifyFlagVector2(Vector2GameDataModifier modifier)
         {
@@ -315,6 +324,7 @@ namespace Snowdrama.GameData
                     break;
             }
             RawSetFlagVector2(modifier.gameDataKey.KeyName, value);
+            modifier.gameDataKey.onChange?.Invoke(value);
         }
         #endregion
 
@@ -348,14 +358,15 @@ namespace Snowdrama.GameData
             }
         }
         //uses a game key to get the value, PREFERED because the key SO can be shared and is read only
-        public Vector3 GetFlagVector3(GameDataKey gameDataKey)
+        public Vector3 GetFlagVector3(GameDataKey<Vector3> gameDataKey)
         {
             return RawGetFlagVector3(gameDataKey.KeyName);
         }
         //uses a game key to set the value, PREFERED because the key SO can be shared and is read only
-        public void SetFlagVector3(GameDataKey gameDataKey, Vector3 value)
+        public void SetFlagVector3(GameDataKey<Vector3> gameDataKey, Vector3 value)
         {
             RawSetFlagVector3(gameDataKey.KeyName, value);
+            gameDataKey.onChange?.Invoke(value);
         }
         public void ModifyFlagVector3(Vector3GameDataModifier modifier)
         {
@@ -373,6 +384,7 @@ namespace Snowdrama.GameData
                     break;
             }
             RawSetFlagVector3(modifier.gameDataKey.KeyName, value);
+            modifier.gameDataKey.onChange?.Invoke(value);
         }
         #endregion
 
@@ -406,14 +418,15 @@ namespace Snowdrama.GameData
             }
         }
         //uses a game key to get the value, PREFERED because the key SO can be shared and is read only
-        public Vector2Int GetFlagVector2Int(GameDataKey gameDataKey)
+        public Vector2Int GetFlagVector2Int(GameDataKey<Vector2Int> gameDataKey)
         {
             return RawGetFlagVector2Int(gameDataKey.KeyName);
         }
         //uses a game key to set the value, PREFERED because the key SO can be shared and is read only
-        public void SetFlagVector2Int(GameDataKey gameDataKey, Vector2Int value)
+        public void SetFlagVector2Int(GameDataKey<Vector2Int> gameDataKey, Vector2Int value)
         {
             RawSetFlagVector2Int(gameDataKey.KeyName, value);
+            gameDataKey.onChange?.Invoke(value);
         }
         public void ModifyFlagVector2Int(Vector2IntGameDataModifier modifier)
         {
@@ -431,6 +444,7 @@ namespace Snowdrama.GameData
                     break;
             }
             RawSetFlagVector2Int(modifier.gameDataKey.KeyName, value);
+            modifier.gameDataKey.onChange?.Invoke(value);
         }
         #endregion
 
@@ -464,14 +478,15 @@ namespace Snowdrama.GameData
             }
         }
         //uses a game key to get the value, PREFERED because the key SO can be shared and is read only
-        public Vector3Int GetFlagVector3Int(GameDataKey gameDataKey)
+        public Vector3Int GetFlagVector3Int(GameDataKey<Vector3Int> gameDataKey)
         {
             return RawGetFlagVector3Int(gameDataKey.KeyName);
         }
         //uses a game key to set the value, PREFERED because the key SO can be shared and is read only
-        public void SetFlagVector3Int(GameDataKey gameDataKey, Vector3Int value)
+        public void SetFlagVector3Int(GameDataKey<Vector3Int> gameDataKey, Vector3Int value)
         {
             RawSetFlagVector3Int(gameDataKey.KeyName, value);
+            gameDataKey.onChange?.Invoke(value);
         }
         public void ModifyFlagVector3Int(Vector3IntGameDataModifier modifier)
         {
@@ -489,6 +504,7 @@ namespace Snowdrama.GameData
                     break;
             }
             RawSetFlagVector3Int(modifier.gameDataKey.KeyName, value);
+            modifier.gameDataKey.onChange?.Invoke(value);
         }
         #endregion
 
@@ -522,22 +538,24 @@ namespace Snowdrama.GameData
             }
         }
         //uses a game key to get the value, PREFERED because the key SO can be shared and is read only
-        public Color GetFlagColor(GameDataKey gameDataKey)
+        public Color GetFlagColor(GameDataKey<Color> gameDataKey)
         {
             return RawGetFlagColor(gameDataKey.KeyName);
         }
         //uses a game key to set the value, PREFERED because the key SO can be shared and is read only
-        public void SetFlagColor(GameDataKey gameDataKey, Color value)
+        public void SetFlagColor(GameDataKey<Color> gameDataKey, Color value)
         {
             RawSetFlagColor(gameDataKey.KeyName, value);
+            gameDataKey.onChange?.Invoke(value);
         }
         public void ModifyFlagColor(ColorGameDataModifier modifier)
         {
             RawSetFlagColor(modifier.gameDataKey.KeyName, modifier.newValue);
+            modifier.gameDataKey.onChange?.Invoke(modifier.newValue);
         }
         #endregion
 
-        public void ApplyModifier(GameDataModifier modifier)
+        public void ApplyModifier<T>(GameDataModifier<T> modifier)
         {
             switch (modifier)
             {
@@ -570,76 +588,5 @@ namespace Snowdrama.GameData
                     break;
             }
         }
-
-        //public bool CompareFlagConditions(List<GameFlagCondition> conditions)
-        //{
-        //    foreach (var item in conditions)
-        //    {
-        //        switch (item)
-        //        {
-        //            case GameFlagIntCondition intCondition:
-        //                if (!intCondition.TestCondition(RawGetFlagInt(intCondition.gameFlag.key)))
-        //                {
-        //                    return false;
-        //                }
-        //                break;
-        //            case GameFlagFloatCondition floatCondition:
-        //                if (!floatCondition.TestCondition(RawGetFlagFloat(floatCondition.gameFlag.key)))
-        //                {
-        //                    return false;
-        //                }
-        //                break;
-        //            case GameFlagBoolCondition boolCondition:
-        //                if (!boolCondition.TestCondition(RawGetFlagBool(boolCondition.gameFlag.key)))
-        //                {
-        //                    return false;
-        //                }
-        //                break;
-        //            case GameFlagVector2Condition vector3Condition:
-        //                if (!vector3Condition.TestCondition(RawGetFlagVector2(vector3Condition.gameFlag.key)))
-        //                {
-        //                    return false;
-        //                }
-        //                break;
-        //            case GameFlagVector3Condition vector3Condition:
-        //                if (!vector3Condition.TestCondition(RawGetFlagVector3(vector3Condition.gameFlag.key)))
-        //                {
-        //                    return false;
-        //                }
-        //                break;
-        //            case GameFlagColorCondition colorCondition:
-        //                if (!colorCondition.TestCondition(RawGetFlagColor(colorCondition.gameFlag.key)))
-        //                {
-        //                    return false;
-        //                }
-        //                break;
-        //        }
-        //    }
-        //    return true;
-        //}
-
-
-        //public void SaveGameData(string saveLocation)
-        //{
-        //    string allGameData = JsonConvert.SerializeObject(this);
-        //    Debug.Log(allGameData);
-        //    FileUtility.WriteStringToFile("/", saveLocation, allGameData);
-        //}
-
-        //public void LoadGameData(string loadLocation)
-        //{
-        //    string loadedString = "";
-        //    if (FileUtility.LoadStringFromFile("/", loadLocation, ref loadedString))
-        //    {
-        //        Debug.Log(loadedString);
-        //        var loadedData = JsonConvert.DeserializeObject<GameData>(loadedString);
-        //        this.intFlags = loadedData.intFlags;
-        //        this.floatFlags = loadedData.floatFlags;
-        //        this.boolFlags = loadedData.boolFlags;
-        //        this.vector2Flags = loadedData.vector2Flags;
-        //        this.vector3Flags = loadedData.vector3Flags;
-        //        this.colorFlags = loadedData.colorFlags;
-        //    }
-        //}
     }
 }

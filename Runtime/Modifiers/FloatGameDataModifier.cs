@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 namespace Snowdrama.GameData
 {
-    [CreateAssetMenu]
-    public class FloatGameDataModifier : GameDataModifier
+    [CreateAssetMenu(menuName = "Snowdrama/GameData/Modifiers/float Modifier")]
+    public class FloatGameDataModifier : GameDataModifier<float>
     {
         public enum FloatGameDataModifierType
         {

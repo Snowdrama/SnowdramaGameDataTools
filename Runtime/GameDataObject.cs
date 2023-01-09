@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Snowdrama.GameData
 {
-    [CreateAssetMenu]
+    [CreateAssetMenu(menuName = "Snowdrama/GameData/GameDataObject")]
     public class GameDataObject : ScriptableObject
     {
         public GameData gameData;

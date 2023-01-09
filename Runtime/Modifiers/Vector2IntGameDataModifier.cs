@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 namespace Snowdrama.GameData
 {
-    [CreateAssetMenu]
-    public class Vector2IntGameDataModifier : GameDataModifier
+    [CreateAssetMenu(menuName = "Snowdrama/GameData/Modifiers/Vector2Int Modifier")]
+    public class Vector2IntGameDataModifier : GameDataModifier<Vector2Int>
     {
         public enum Vector2IntGameDataModifierType
         {
