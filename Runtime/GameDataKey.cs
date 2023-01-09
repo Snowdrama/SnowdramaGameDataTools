@@ -15,6 +15,10 @@ namespace Snowdrama.GameData
             {
                 return _keyName;
             }
+            set
+            {
+                _keyName = value;
+            }
         }
         private void OnValidate()
         {

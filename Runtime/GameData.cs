@@ -76,6 +76,7 @@ namespace Snowdrama.GameData
         {
             return RawGetFlagInt(gameDataKey.KeyName);
         }
+
         //uses a game key to set the value, PREFERED because the key SO can be shared and is read only
         public void SetFlagInt(GameDataKey gameDataKey, int value)
         {
@@ -535,7 +536,6 @@ namespace Snowdrama.GameData
             RawSetFlagColor(modifier.gameDataKey.KeyName, modifier.newValue);
         }
         #endregion
-
 
         public void ApplyModifier(GameDataModifier modifier)
         {
