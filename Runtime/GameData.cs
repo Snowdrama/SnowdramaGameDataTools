@@ -7,10 +7,8 @@ namespace Snowdrama.GameData
     [System.Serializable]
     public class GameData
     {
-        //TODO: Come back and add a bunch of hashing stuff for the Dictionary<int, int>
         public StringIntDictionary intFlags = new StringIntDictionary();
         public StringStringDictionary stringFlags = new StringStringDictionary();
-        //public StringActionDictionary intActionFlags = new StringActionDictionary<int>();
         public StringFloatDictionary floatFlags = new StringFloatDictionary();
         public StringBoolDictionary boolFlags = new StringBoolDictionary();
         public StringVector2Dictionary vector2Flags = new StringVector2Dictionary();
@@ -74,14 +72,14 @@ namespace Snowdrama.GameData
         //uses a game key to get the value, PREFERED because the key SO can be shared and is read only
         public int GetFlagInt(GameDataKey<int> gameDataKey, int fallbackState = 0)
         {
-            return RawGetFlagInt(gameDataKey.KeyName);
+            return RawGetFlagInt(gameDataKey.KeyName, fallbackState);
         }
 
         //uses a game key to set the value, PREFERED because the key SO can be shared and is read only
         public void SetFlagInt(GameDataKey<int> gameDataKey, int value)
         {
             RawSetFlagInt(gameDataKey.KeyName, value);
-            gameDataKey.onChange?.Invoke(value);
+            gameDataKey.onChange?.Invoke();
         }
 
         public void ModifyFlagInt(IntGameDataModifier modifier)
@@ -89,18 +87,15 @@ namespace Snowdrama.GameData
             var value = RawGetFlagInt(modifier.gameDataKey.KeyName);
             switch (modifier.modifierType)
             {
-                case IntGameDataModifier.IntGameDataModifierType.Add:
+                case GameDataModifierType.Change:
                     value += modifier.changeAmount;
                     break;
-                case IntGameDataModifier.IntGameDataModifierType.Subtract:
-                    value -= modifier.changeAmount;
-                    break;
-                case IntGameDataModifier.IntGameDataModifierType.Set:
+                case GameDataModifierType.Set:
                     value = modifier.changeAmount;
                     break;
             }
             RawSetFlagInt(modifier.gameDataKey.KeyName, value);
-            modifier.gameDataKey.onChange?.Invoke(value);
+            modifier.gameDataKey.onChange?.Invoke();
         }
 
         #endregion
@@ -144,13 +139,13 @@ namespace Snowdrama.GameData
         public void SetFlagString(GameDataKey<string> gameDataKey, string value)
         {
             RawSetFlagString(gameDataKey.KeyName, value);
-            gameDataKey.onChange?.Invoke(value);
+            gameDataKey.onChange?.Invoke();
         }
 
         public void ModifyFlagString(StringGameDataModifier modifier)
         {
             RawSetFlagString(modifier.gameDataKey.KeyName, modifier.newValue);
-            modifier.gameDataKey.onChange?.Invoke(modifier.newValue);
+            modifier.gameDataKey.onChange?.Invoke();
         }
         #endregion
 
@@ -196,25 +191,22 @@ namespace Snowdrama.GameData
         public void SetFlagFloat(GameDataKey<float> gameDataKey, float value)
         {
             RawSetFlagFloat(gameDataKey.KeyName, value);
-            gameDataKey.onChange?.Invoke(value);
+            gameDataKey.onChange?.Invoke();
         }
         public void ModifyFlagFloat(FloatGameDataModifier modifier)
         {
             var value = RawGetFlagFloat(modifier.gameDataKey.KeyName);
             switch (modifier.modifierType)
             {
-                case FloatGameDataModifier.FloatGameDataModifierType.Add:
+                case GameDataModifierType.Change:
                     value += modifier.changeAmount;
                     break;
-                case FloatGameDataModifier.FloatGameDataModifierType.Subtract:
-                    value -= modifier.changeAmount;
-                    break;
-                case FloatGameDataModifier.FloatGameDataModifierType.Set:
+                case GameDataModifierType.Set:
                     value = modifier.changeAmount;
                     break;
             }
             RawSetFlagFloat(modifier.gameDataKey.KeyName, value);
-            modifier.gameDataKey.onChange?.Invoke(value);
+            modifier.gameDataKey.onChange?.Invoke();
         }
 
         #endregion
@@ -249,21 +241,21 @@ namespace Snowdrama.GameData
             }
         }
         //uses a game key to get the value, PREFERED because the key SO can be shared and is read only
-        public bool GetFlagBool(GameDataKey<bool> gameDataKey)
+        public bool GetFlagBool(GameDataKey<bool> gameDataKey, bool fallbackState = false)
         {
-            return RawGetFlagBool(gameDataKey.KeyName);
+            return RawGetFlagBool(gameDataKey.KeyName, fallbackState);
         }
         //uses a game key to set the value, PREFERED because the key SO can be shared and is read only
         public void SetFlagBool(GameDataKey<bool> gameDataKey, bool value)
         {
             RawSetFlagBool(gameDataKey.KeyName, value);
-            gameDataKey.onChange?.Invoke(value);
+            gameDataKey.onChange?.Invoke();
         }
 
         public void ModifyFlagBool(BoolGameDataModifier modifier)
         {
             RawSetFlagBool(modifier.gameDataKey.KeyName, modifier.newValue);
-            modifier.gameDataKey.onChange?.Invoke(modifier.newValue);
+            modifier.gameDataKey.onChange?.Invoke();
         }
 
         #endregion
@@ -306,7 +298,7 @@ namespace Snowdrama.GameData
         public void SetFlagVector2(GameDataKey<Vector2> gameDataKey, Vector2 value)
         {
             RawSetFlagVector2(gameDataKey.KeyName, value);
-            gameDataKey.onChange?.Invoke(value);
+            gameDataKey.onChange?.Invoke();
         }
         public void ModifyFlagVector2(Vector2GameDataModifier modifier)
         {
@@ -324,7 +316,7 @@ namespace Snowdrama.GameData
                     break;
             }
             RawSetFlagVector2(modifier.gameDataKey.KeyName, value);
-            modifier.gameDataKey.onChange?.Invoke(value);
+            modifier.gameDataKey.onChange?.Invoke();
         }
         #endregion
 
@@ -366,7 +358,7 @@ namespace Snowdrama.GameData
         public void SetFlagVector3(GameDataKey<Vector3> gameDataKey, Vector3 value)
         {
             RawSetFlagVector3(gameDataKey.KeyName, value);
-            gameDataKey.onChange?.Invoke(value);
+            gameDataKey.onChange?.Invoke();
         }
         public void ModifyFlagVector3(Vector3GameDataModifier modifier)
         {
@@ -384,7 +376,7 @@ namespace Snowdrama.GameData
                     break;
             }
             RawSetFlagVector3(modifier.gameDataKey.KeyName, value);
-            modifier.gameDataKey.onChange?.Invoke(value);
+            modifier.gameDataKey.onChange?.Invoke();
         }
         #endregion
 
@@ -426,7 +418,7 @@ namespace Snowdrama.GameData
         public void SetFlagVector2Int(GameDataKey<Vector2Int> gameDataKey, Vector2Int value)
         {
             RawSetFlagVector2Int(gameDataKey.KeyName, value);
-            gameDataKey.onChange?.Invoke(value);
+            gameDataKey.onChange?.Invoke();
         }
         public void ModifyFlagVector2Int(Vector2IntGameDataModifier modifier)
         {
@@ -444,7 +436,7 @@ namespace Snowdrama.GameData
                     break;
             }
             RawSetFlagVector2Int(modifier.gameDataKey.KeyName, value);
-            modifier.gameDataKey.onChange?.Invoke(value);
+            modifier.gameDataKey.onChange?.Invoke();
         }
         #endregion
 
@@ -486,7 +478,7 @@ namespace Snowdrama.GameData
         public void SetFlagVector3Int(GameDataKey<Vector3Int> gameDataKey, Vector3Int value)
         {
             RawSetFlagVector3Int(gameDataKey.KeyName, value);
-            gameDataKey.onChange?.Invoke(value);
+            gameDataKey.onChange?.Invoke();
         }
         public void ModifyFlagVector3Int(Vector3IntGameDataModifier modifier)
         {
@@ -504,7 +496,7 @@ namespace Snowdrama.GameData
                     break;
             }
             RawSetFlagVector3Int(modifier.gameDataKey.KeyName, value);
-            modifier.gameDataKey.onChange?.Invoke(value);
+            modifier.gameDataKey.onChange?.Invoke();
         }
         #endregion
 
@@ -546,12 +538,12 @@ namespace Snowdrama.GameData
         public void SetFlagColor(GameDataKey<Color> gameDataKey, Color value)
         {
             RawSetFlagColor(gameDataKey.KeyName, value);
-            gameDataKey.onChange?.Invoke(value);
+            gameDataKey.onChange?.Invoke();
         }
         public void ModifyFlagColor(ColorGameDataModifier modifier)
         {
             RawSetFlagColor(modifier.gameDataKey.KeyName, modifier.newValue);
-            modifier.gameDataKey.onChange?.Invoke(modifier.newValue);
+            modifier.gameDataKey.onChange?.Invoke();
         }
         #endregion
 
@@ -587,6 +579,13 @@ namespace Snowdrama.GameData
                     ModifyFlagColor(mod);
                     break;
             }
+        }
+
+        public string GetDataAsJSON()
+        {
+            var convertedJSON = Newtonsoft.Json.JsonConvert.SerializeObject(this);
+            Debug.Log(convertedJSON);
+            return convertedJSON;
         }
     }
 }

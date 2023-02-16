@@ -7,7 +7,7 @@ namespace Snowdrama.GameData
 {
     public abstract class GameDataKey<T> : ScriptableObject
     {
-        public Action<T> onChange;
+        public Action onChange;
         [SerializeField] private string _keyName;
         public string KeyName
         {
@@ -27,6 +27,5 @@ namespace Snowdrama.GameData
                 _keyName = this.name;
             }
         }
-
     }
 }

@@ -17,7 +17,7 @@
     {
       "displayName": "Spring Example",
       "description": "A set of scripts for managing, serializing, and deserializing dictionaries",
-      "path": "Samples~/SpringExample"
+      "path": "Samples~/GameDataSample"
     }
   ]
 }
