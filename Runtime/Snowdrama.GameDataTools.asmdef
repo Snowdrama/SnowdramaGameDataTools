@@ -1,7 +1,9 @@
 {
-    "name": "Snowdrama.GameDataTools",
+    "name": "Snowdrama.Core.GameDataTools",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "GUID:70b388a0097951c4f8c94cc376d2c05e"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

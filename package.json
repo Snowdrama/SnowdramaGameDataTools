@@ -15,7 +15,7 @@
   "type": "utility",
   "samples": [
     {
-      "displayName": "Spring Example",
+      "displayName": "Game Data Example",
       "description": "A set of scripts for managing, serializing, and deserializing dictionaries",
       "path": "Samples~/GameDataSample"
     }

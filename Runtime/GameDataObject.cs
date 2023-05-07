@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Snowdrama.GameData
+namespace Snowdrama.Core.GameData
 {
     [CreateAssetMenu(menuName = "Snowdrama/GameData/GameDataObject")]
     public class GameDataObject : ScriptableObject
